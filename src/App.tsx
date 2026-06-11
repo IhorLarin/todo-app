@@ -1,13 +1,12 @@
 import { useState } from "react";
+
+import TodoInput from "./components/TodoInput";
+import TodoFilter from "./components/TodoFilter";
+import TodoList from "./components/TodoList";
+
 import "./App.css";
 
-type Todo = {
-    id: number
-    text: string
-    done: boolean
-};
-
-type Filter = "all" | "active" | "done";
+import type { Todo, Filter } from './types'
 
 function App() {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -46,9 +45,10 @@ function App() {
                     Todo List
                 </h1>
 
-                {/* TodoInput */}
-                {/* TodoFilter */}
-                {/* TodoList */}
+                <TodoInput onAdd={addTodo} />
+                <TodoFilter current={filter} onChange={setFilter} />
+                <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} />
+
             </div>
         </div>
     );
