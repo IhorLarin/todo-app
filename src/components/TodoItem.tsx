@@ -23,6 +23,7 @@ export default function TodoItem({ todo, onDelete, onToggle }: Props) {
         {todo.text}
       </span>
             <button
+                aria-label="Delete"
                 className="text-gray-400 hover:text-red-500 transition-colors text-lg leading-none"
                 onClick={() => onDelete(todo.id)}
             >
