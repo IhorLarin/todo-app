@@ -44,7 +44,7 @@ describe("TodoItem", () => {
     });
 
     it('calls onToggle with correct id when checkbox is clicked', async () => {
-        // Arrange — mock функція і рендер
+        // Arrange — mock function and render
         const user = userEvent.setup();
         const onToggle = vi.fn();
 
@@ -56,7 +56,7 @@ describe("TodoItem", () => {
             />,
         );
 
-        // Act — знаходимо checkbox і клікаємо
+        // Act — find the checkbox and click it
         const checkbox = screen.getByRole('checkbox');
         await user.click(checkbox);
 
@@ -64,7 +64,7 @@ describe("TodoItem", () => {
     });
 
     it("calls onDelete with correct id when delete button is clicked", async () => {
-        //Arrange -
+        //Arrange
         const user = userEvent.setup();
         const onDelete = vi.fn();
 
@@ -76,7 +76,7 @@ describe("TodoItem", () => {
             />,
         );
 
-        // Act — знаходимо delete button і клікаємо
+        // Act — find the delete button and click it
         const deleteButton = screen.getByRole('button', { name: 'Delete' });
         await user.click(deleteButton);
 
