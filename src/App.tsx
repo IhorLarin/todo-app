@@ -8,35 +8,26 @@ import "./App.css";
 
 import type { Todo, Filter } from './types'
 
+import { createTodo, deleteTodo, toggleTodo, filterTodos } from './utils/todoUtils'
+
+
 function App() {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [filter, setFilter] = useState<Filter>("all");
 
     const addTodo = (text: string) => {
-        const newTodo: Todo = {
-            id: Date.now(),
-            text,
-            done: false,
-        };
+        setTodos(prev => [...prev, createTodo(text)])
+    }
 
-        setTodos(prev => [...prev, newTodo]);
-    };
+    const handleDelete = (id: number) => {
+        setTodos(prev => deleteTodo(prev, id))
+    }
 
-    const deleteTodo = (id: number) => {
-        setTodos(prev => prev.filter(todo => todo.id !== id));
-    };
+    const handleToggle = (id: number) => {
+        setTodos(prev => toggleTodo(prev, id))
+    }
 
-    const toggleTodo = (id: number) => {
-        setTodos(prev => prev.map(todo => {
-            return todo.id === id ? { ...todo, done: !todo.done } : todo;
-        }));
-    };
-
-    const filteredTodos = todos.filter(todo => {
-        if (filter === "active") return !todo.done;
-        if (filter === "done") return todo.done;
-        return true;
-    });
+    const filteredTodos = filterTodos(todos, filter)
 
     return (
         <div className="min-h-screen bg-gray-100 py-10">
@@ -47,7 +38,7 @@ function App() {
 
                 <TodoInput onAdd={addTodo} />
                 <TodoFilter current={filter} onChange={setFilter} />
-                <TodoList todos={filteredTodos} onDelete={deleteTodo} onToggle={toggleTodo} />
+                <TodoList todos={filteredTodos} onDelete={handleDelete} onToggle={handleToggle} />
 
             </div>
         </div>
